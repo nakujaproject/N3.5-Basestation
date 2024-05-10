@@ -13,7 +13,6 @@ dist-ssr
 
 *.local
 *.mbtiles
-osm-2020-02-10-v3.11_africa_kenya.mbtiles
 
 # Editor directories and files
 .vscode/*
