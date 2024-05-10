@@ -1,0 +1,28 @@
+version: '3'
+services:
+  client:
+    image: '${DOCKER_CLIENT_IMAGE}'
+    restart: always
+    ports:
+      - 3000:3000
+    environment:
+    - SERVER_URL=${SERVER_URL:-ws://192.168.0.100:3000} 
+    - CAMERA_URL=${CAMERA_URL:-http://192.168.0.103:81/stream} 
+  mosquitto:
+    image: eclipse-mosquitto:2.0.14
+    ports:
+      - 1883:1883   
+    volumes:
+      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf 
+      - mosquitto-data:/mosquitto/data
+      - mosquitto-log:/mosquitto/log  
+    restart: always
+  maptiler:
+    image: maptiler/tileserver-gl:latest
+    ports:
+      - 8080:8080 
+    restart: always
+
+volumes:
+  mosquitto-data:
+  mosquitto-log:
